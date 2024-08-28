@@ -50,7 +50,7 @@ public class Dao {
     }
 
     public boolean createFruit(String name, float price) {
-        String query = String.format("insert into Fruta (name, price) values ('%s', %s);", name, 
+        String query = String.format("insert into Fruit (name, price) values ('%s', %s);", name, 
                 String.format("%.2f", price).replace(',','.'));
 
         boolean isFruitCreated = false;
@@ -69,7 +69,7 @@ public class Dao {
     }
 
     public List<Fruit> getFruitsByName(String name) {
-        String query = String.format("select * from Fruta where name = '%s';", name);
+        String query = String.format("select * from Fruit where name = '%s';", name);
         List<Fruit> fruits = new LinkedList<Fruit>();
 
         try {
