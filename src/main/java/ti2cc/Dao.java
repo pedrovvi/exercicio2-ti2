@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class Dao {
 
     public List<Fruit> getFruitsByName(String name) {
         String query = String.format("select * from Fruit where name = '%s';", name);
-        List<Fruit> fruits = new LinkedList<Fruit>();
+        List<Fruit> fruits = new ArrayList<Fruit>();
 
         try {
             Statement stmt = this.connection.createStatement();
@@ -84,6 +85,35 @@ public class Dao {
 
                 fruits.add(currentFruit);
             }
+
+            res.close();
+            stmt.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return fruits;
+    }
+
+    public List<Fruit> getAllFruits() {
+        String query = "select * from Fruit;";
+        List<Fruit> fruits = new ArrayList<Fruit>();
+
+        try {
+            Statement stmt = this.connection.createStatement();
+            ResultSet res = stmt.executeQuery(query);
+
+            while (res.next()) {
+                Fruit currentFruit = new Fruit();
+                currentFruit.setId(res.getInt("id"));
+                currentFruit.setName(res.getString("name"));
+                currentFruit.setPrice(res.getFloat("price"));
+
+                fruits.add(currentFruit);
+            }
+
+            res.close();
+            stmt.close();
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

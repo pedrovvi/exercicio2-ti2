@@ -24,6 +24,7 @@ public class App {
             System.out.println("2 - Buscar frutas pelo nome;");
             System.out.println("3 - Remover fruta pelo id;");
             System.out.println("4 - Editar fruta pelo id.");
+            System.out.println("5 - Listar todas frutas.");
             System.out.println("=".repeat(25));
             System.out.println("> Escolha uma opção: ");
 
@@ -35,6 +36,7 @@ public class App {
                 case 2: searchFruit(); break;
                 case 3: deleteFruit(); break;
                 case 4: editFruit(); break;
+                case 5: listFruits(); break;
             }
         } while (option != 0);
 
@@ -93,5 +95,16 @@ public class App {
         boolean result = dao.editFruitById(id, name, price);
         if (result) System.out.println("A fruta foi editada com sucesso.");
         else System.err.println("Não foi possível editar esta fruta.");
+    }
+
+    private static void listFruits() {
+        List<Fruit> fruits = dao.getAllFruits();
+
+        if (fruits.size() > 0) { 
+            fruits.forEach(fruit -> System.out.println(fruit.toString()));
+            return;
+        };
+
+        System.err.println("Não foi possível listar nenhuma fruta.");
     }
 }
