@@ -105,4 +105,20 @@ public class Dao {
 
         return isFruitDeleted;
     }
+
+    public boolean editFruitById(int id, String name, float price) {
+        String query = String.format("update Fruit set (name, price) = ('%s', %s) where id = %d;", name,
+                String.format("%.2f", price).replace(",","."), id);
+        boolean isFruitEdited = false;
+
+        try {
+            Statement stmt = this.connection.createStatement();
+            stmt.executeUpdate(query);
+            isFruitEdited = true;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return isFruitEdited;
+    }
 }

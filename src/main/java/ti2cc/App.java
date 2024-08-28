@@ -21,8 +21,9 @@ public class App {
             System.out.println("=".repeat(25));
             System.out.println("0 - Sair do programa;");
             System.out.println("1 - Registrar fruta;");
-            System.out.println("2 - Buscar frutas pelo nome.");
-            System.out.println("3 - Remover fruta pelo id.");
+            System.out.println("2 - Buscar frutas pelo nome;");
+            System.out.println("3 - Remover fruta pelo id;");
+            System.out.println("4 - Editar fruta pelo id.");
             System.out.println("=".repeat(25));
             System.out.println("> Escolha uma opção: ");
 
@@ -33,6 +34,7 @@ public class App {
                 case 1: createFruit(); break;
                 case 2: searchFruit(); break;
                 case 3: deleteFruit(); break;
+                case 4: editFruit(); break;
             }
         } while (option != 0);
 
@@ -74,5 +76,22 @@ public class App {
         boolean result = dao.deleteFruitById(id);
         if (result) System.out.println("A fruta foi removida com sucesso.");
         else System.err.println("Não foi possível remover esta fruta.");
+    }
+
+    private static void editFruit() {
+        System.out.println("> Digite o id da fruta: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("> Digite o novo nome da fruta: ");
+        String name = sc.nextLine();
+
+        System.out.println("> Digite o novo preço da fruta: ");
+        float price = sc.nextFloat();
+        sc.nextLine();
+
+        boolean result = dao.editFruitById(id, name, price);
+        if (result) System.out.println("A fruta foi editada com sucesso.");
+        else System.err.println("Não foi possível editar esta fruta.");
     }
 }
