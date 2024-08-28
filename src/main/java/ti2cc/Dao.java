@@ -90,4 +90,19 @@ public class Dao {
 
         return fruits;
     }
+
+    public boolean deleteFruitById(int id) {
+        String query = String.format("delete from Fruit where id = %d;", id);
+        boolean isFruitDeleted = false;
+
+        try {
+            Statement stmt = this.connection.createStatement();
+            stmt.executeUpdate(query);
+            isFruitDeleted = true;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return isFruitDeleted;
+    }
 }
